@@ -1,1 +1,3 @@
-# Tema labs untuk OpenSID, kontribusi dari https://github.com/labkoding
+# Tema labs v.0.1  untuk OpenSID
+
+
