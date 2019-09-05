@@ -1,6 +1,6 @@
 <?php  if(!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 <div class="block block-themed block-mode-hidden">
-    <div class="block-header bg-gd-sea block-header-default">
+    <div class="block-header bg-gd-cherry block-header-default">
         <h3 class="block-title">
             <i class="si si-bubble"></i>
              Komentar Terkini</h3>

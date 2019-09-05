@@ -21,7 +21,7 @@
     </div>
     <div class="block-content tab-content pb-20">
         <!-- Tiles Slider 2 -->
-        <div class="js-slider text-center" data-autoplay="true" data-dots="true" data-arrows="true" data-slides-to-show="3">
+        <div class="js-slider text-center" data-autoplay="true" data-dots="true" data-arrows="false" data-slides-to-show="3">
 		<?php foreach ($sosmed As $data): ?>
             <div class="block text-center bg-white mb-0">
                 <div class="py-20">
