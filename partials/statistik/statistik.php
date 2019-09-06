@@ -1,107 +1,5 @@
 <?php  if(!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
-<?php if($tipe==1){?>
-<script type="text/javascript">
-$(function () {
-    var chart;
-    $(document).ready(function () {
-
-        chart = new Highcharts.Chart({
-            chart: { renderTo: 'container'},
-            title:0,
-					xAxis: {
-                        categories: [
-						<?php  $i=0;foreach($stat as $data){$i++;?>
-						  <?php if($data['jumlah'] != "-" AND $data['nama']!= "TOTAL" AND $data['nama']!= "JUMLAH"){echo "'$i',";}?>
-						<?php }?>
-						]
-					},
-				plotOptions: {
-					series: {
-						colorByPoint: true
-					},
-					column: {
-						pointPadding: -0.1,
-						borderWidth: 0
-					}
-				},
-					legend: {
-                        enabled:false
-					},
-            series: [{
-                type: 'column',
-                name: 'Jumlah Populasi',
-				shadow:1,
-				border:1,
-                data: [
-						<?php  foreach($stat as $data){?>
-							<?php if($data['jumlah'] != "-" AND $data['nama']!= "TOTAL" AND $data['nama']!= "JUMLAH"){?>
-								['<?= $data['nama']?>',<?= $data['jumlah']?>],
-							<?php }?>
-						<?php }?>
-                ]
-            }]
-        });
-    });
-
-});
-</script>
-<?php }else{?>
-
-<script type="text/javascript">
-$(function () {
-    var chart;
-
-    $(document).ready(function () {
-
-    	// Build the chart
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'container'
-            },
-            title:0,
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    showInLegend: true
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'Jumlah Populasi',
-				shadow:1,
-				border:1,
-                data: [
-						<?php  foreach($stat as $data){?>
-							<?php if($data['jumlah'] != "-" AND $data['nama']!= "TOTAL" AND $data['nama']!= "JUMLAH"){?>
-								['<?= $data['nama']?>',<?= $data['jumlah']?>],
-							<?php }?>
-						<?php }?>
-                ]
-            }]
-        });
-    });
-
-});
-</script>
-<?php }?>
-<script src="<?= base_url()?>assets/js/highcharts/highcharts.js"></script>
-<script src="<?= base_url()?>assets/js/highcharts/highcharts-more.js"></script>
-<script src="<?= base_url()?>assets/js/highcharts/exporting.js"></script>
-<style>
-	tr.lebih{
-		display:none;
-	}
-</style>
-<script>
-$(function(){
-	$('#showData').click(function(){
-		$('tr.lebih').show();
-		$('#showData').hide();
-	});
-});
-</script>
 <?php
 
 	echo "
@@ -181,13 +79,12 @@ $(function(){
 			</table>";
 			if($hide=="lebih"){
 				echo "
-				<div style='margin-left:20px;'>
-				<button class='btn btn-rounded btn-noborder btn-success min-width-125 mb-10' id='showData'>Selengkapnya...</button>
-				</div>
 				";
 			}
 
 		echo "
 		</div>
 		</div>
-	</div>";
+	</div>"; 
+?>
+	

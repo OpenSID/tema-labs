@@ -1,6 +1,6 @@
 <?php  if(!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 <div class="block block-themed block-mode-hidden">
-<?php
+    <?php
   $ip = $_SERVER['REMOTE_ADDR']."{}";
   if(!isset($_SESSION['MemberOnline'])){
     $cek = $this->db->query("SELECT Tanggal,ipAddress FROM sys_traffic WHERE Tanggal='".date("Y-m-d")."'");
@@ -56,46 +56,42 @@
     return $num;
   }
   ?>
-    <div class="block-header bg-gd-sea block-header-default">
+    <div class="block-header bg-corporate block-header-default">
         <h3 class="block-title">
             <i class="si si-cursor"></i>
-             Pengunjung</h3>
+            Pengunjung</h3>
         <div class="block-options">
-            <button
-                type="button"
-                class="btn-block-option"
-                data-toggle="block-option"
-                data-action="fullscreen_toggle">
+            <button type="button" class="btn-block-option" data-toggle="block-option" data-action="fullscreen_toggle">
                 <i class="si si-size-fullscreen"></i>
             </button>
-            <button
-                type="button"
-                class="btn-block-option"
-                data-toggle="block-option"
-                data-action="content_toggle">
+            <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle">
                 <i class="si si-arrow-up"></i>
             </button>
         </div>
     </div>
     <div class="block-content">
-        <ul class="list list-activity">
-            <li>
-                <i class="si si-event text-danger"></i>
-                <div class="h6 font-size-sm text-muted">Pengunjung Hari Ini :
-                    <span><?= num_toimage($today,6); ?></span>
-                </div>
-            </li>
-            <li>
-                <i class="si si-event text-danger"></i>
-                <div class="h6 font-size-sm text-muted">Pengunjun Kemarin :
-                    <span><?= num_toimage($yesterday,6); ?></span></div>
-            </li>
-            <li>
-                <i class="si si-event text-danger"></i>
-                <div class="h6 font-size-sm text-muted">Total Pengunjung :
-                    <span><?= num_toimage($total,6); ?></span>
-                </div>
-            </li>
-        </ul>
+        <table class="table table-striped table-vcenter">
+            <thead>
+                <tr>
+                    <th class="d-none d-sm-table-cell" style="width: 30%;">Pengunjung</th>
+                    <th class="d-none d-md-table-cell" style="width: 15%;">Jumlah</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="font-w600">Pengunjung Hari Ini</td>
+                    <td class="d-none d-sm-table-cell"><?= num_toimage($today,6); ?></td>
+                </tr>
+                <tr>
+                    <td class="font-w600">Pengunjun Kemarin</td>
+                    <td class="d-none d-sm-table-cell"><?= num_toimage($yesterday,6); ?></td>
+                </tr>
+                <tr>
+                    <td class="font-w600">Total Pengunjung </td>
+                    <td class="d-none d-sm-table-cell"><?= num_toimage($total,6); ?></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

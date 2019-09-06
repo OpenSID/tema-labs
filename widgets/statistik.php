@@ -1,6 +1,6 @@
 <?php  if(!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 <div class="block block-themed block-mode-hidden">
-    <div class="block-header bg-gd-sea">
+    <div class="block-header bg-gd-aqua">
         <h3 class="block-title">
             <i class="si si-bar-chart"></i>
              Statistik Desa</h3>

@@ -1,63 +1,23 @@
 <?php  if(!defined('BASEPATH')) exit('No direct script access allowed'); ?>
-<!DOCTYPE html>
-<!--[if lte IE 9]>     <html lang="en" class="no-focus lt-ie10 lt-ie10-msg"> <![endif]-->
-<!--[if gt IE 9]><!--> <html lang="en" class="no-focus"> <!--<![endif]-->
-
-<head>
-<?php $this->load->view("$folder_themes/commons/meta.php"); ?>
-<?php $this->load->view("$folder_themes/commons/style.php"); ?>
-<?php $this->load->view("$folder_themes/commons/scripts.php"); ?>
-
-    <div id="page-container"
-        class="sidebar-inverse side-overlay-hover side-scroll page-header-fixed page-header-inverse main-content-boxed side-trans-enabled">
-
-        <!-- header Mobile -->
-        <?php $this->load->view("$folder_themes/partials/header_mobile.php"); ?>
-        <!-- header mobile -->
-
-        <!-- header -->
-        <?php $this->load->view("$folder_themes/partials/header.php"); ?>
-        <!-- header -->
-        <main id="main-container">
-        <div class="bg-image" style="background-image: url('<?= base_url("$this->theme_folder/$this->theme/assets/headwalp.jpg"); ?>');">
-            <div class="bg-black-op">
-                <div class="content content-top text-center">
-                <img class="img-avatar" src="<?php echo LogoDesa($desa['logo']);?>" alt="<?php echo $desa['nama_desa']?>">
-                    <div class="pb-50 pt-10">
-                        <h1 class="font-w700 text-white mb-10 js-animation-object animated lightSpeedIn"><?= $this->setting->website_title. ' ' . ucwords($this->setting->sebutan_desa). (($desa['nama_desa']) ? ' ' . $desa['nama_desa'] : ''); ?></h1>
-                        <h2 class="h4 font-w400 text-white-op" data-animation-class="lightSpeedOut" > 
-                        <em>
-                            <?= ucwords($this->setting->sebutan_kecamatan_singkat." ".$desa['nama_kecamatan'])?>,
-                            <?= ucwords($this->setting->sebutan_kabupaten_singkat." ".$desa['nama_kabupaten'])?>,
-                            <?= ucwords("Prov. ".$desa['nama_propinsi'])?></h2></em>
-                        <button class="btn btn-hero btn-noborder btn-rounded btn-alt-success mb-10">
-                            <span id="jam"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<?php $this->load->view("$folder_themes/commons/head_start.php"); ?>
+<?php $this->load->view("$folder_themes/commons/head_end.php"); ?>
+<?php $this->load->view("$folder_themes/commons/page_start.php"); ?>
             <div class="content content-full">
                 <!-- Dummy content -->
                 <div class="row">
                     <div class="col-md-8">
                         <div class="row">
                             <div class="col-sm-12">
-                                <?php $this->load->view("$folder_themes/partials/all_statistik.php"); ?>
+                                <?php $this->load->view("$folder_themes/partials/statistik/all_statistik.php"); ?>
                             </div>
                             <div class="col-sm-12">
                                 <div class="block">
                                 <?php
                                         if($tipe == 2){
-                                            if($tipex==1){
-                                                $this->load->view($folder_themes.'/partials/statistik_sos.php');
-                                            }
-                                        }elseif($tipe == 3){
-                                            $this->load->view($folder_themes.'/partials/wilayah.php');
-                                        }elseif($tipe == 4){
-                                            $this->load->view($folder_themes.'/partials/dpt.php');
-                                        }else{
-                                            $this->load->view(Web_Controller::fallback_default($this->theme, '/partials/statistik.php'));
+                                        if($tipex==1){$this->load->view($folder_themes.'/partials/statistik/statistik_sos.php');}                   
+                                        }elseif($tipe == 3){ $this->load->view($folder_themes.'/partials/statistik/wilayah.php');  
+                                        }elseif($tipe == 4){   $this->load->view($folder_themes.'/partials/statistik/dpt.php');
+                                        }else{ $this->load->view(Web_Controller::fallback_default($this->theme, '/partials/statistik/statistik.php'));    
                                         }
                                 ?>
                                 </div>
@@ -67,20 +27,178 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="block">
-                                    <div class="block-content">
-                                        <?php $this->load->view("$folder_themes/partials/widget.php"); ?>
-                                    </div>
-                                </div>
+                                <?php $this->load->view("$folder_themes/layouts/widget.php"); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?php $this->load->view($folder_themes.'/includes/inc_other_footer.php'); ?> 
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- END Dummy content -->
             </div>
-        </main>
-        <?php $this->load->view("$folder_themes/partials/footer.php"); ?>
-    </div>
-</body>
+            <?php $this->load->view("$folder_themes/commons/page_end.php"); ?>
+            <?php $this->load->view("$folder_themes/commons/footer_start.php"); ?>
+            <!-- SRIPTS STATISTIK -->
+                <script type="text/javascript">
+                    var chart;
+                    $(document).ready(function() {
+                        chart = new Highcharts.Chart({
+                            chart: {
+                                renderTo: 'container',
+                                defaultSeriesType: 'column'
+                            },
+                            title: {
+                                text: 'Statistik Kelas Sosial'
+                            },
+                            xAxis: {
+                                title: {
+                                    text: 'Kelas Sosial'
+                                },
+                                categories: [
+                                <?php  $i=0;foreach($main as $data){$i++;?>
+                                <?= "'$data[nama]',";?>
+                                <?php }?>
+                                ]
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Populasi'
+                                }
+                            },
+                            legend: {
+                                layout: 'vertical',
+                                backgroundColor: '#FFFFFF',
+                                align: 'left',
+                                verticalAlign: 'top',
+                                x: 100,
+                                y: 70,
+                                floating: true,
+                                shadow: true,
+                                enabled:false
+                            },
+                            tooltip: {
+                                formatter: function() {
+                                    return ''+
+                                        this.x +': '+ this.y +'';
+                                }
+                            },
+                            plotOptions: {
+                                series: {
+                                    colorByPoint: true
+                                },
+                                column: {
+                                    pointPadding: 0.2,
+                                    borderWidth: 0
+                                }
+                            },
+                                series: [{
+                                name: 'Populasi',
+                                data: [
+                                <?php  foreach($main as $data){?>
+                                <?= $data['jumlah'].",";?>
+                                <?php }?>]
 
-</html>
+                            }]
+                        });
+
+
+                    });
+                </script>
+            <!-- END SRIPTS STATISTIK SOS -->
+
+            <!-- SRIPTS STATISTIK -->
+            <?php if($tipe==1){?>
+                <script type="text/javascript">
+                    $(function () {
+                        var chart;
+                        $(document).ready(function () {
+
+                            chart = new Highcharts.Chart({
+                                chart: { renderTo: 'container'},
+                                title:0,
+                                        xAxis: {
+                                            categories: [
+                                            <?php  $i=0;foreach($stat as $data){$i++;?>
+                                            <?php if($data['jumlah'] != "-" AND $data['nama']!= "TOTAL" AND $data['nama']!= "JUMLAH"){echo "'$i',";}?>
+                                            <?php }?>
+                                            ]
+                                        },
+                                    plotOptions: {
+                                        series: {
+                                            colorByPoint: true
+                                        },
+                                        column: {
+                                            pointPadding: -0.1,
+                                            borderWidth: 0
+                                        }
+                                    },
+                                        legend: {
+                                            enabled:false
+                                        },
+                                series: [{
+                                    type: 'column',
+                                    name: 'Jumlah Populasi',
+                                    shadow:1,
+                                    border:1,
+                                    data: [
+                                            <?php  foreach($stat as $data){?>
+                                                <?php if($data['jumlah'] != "-" AND $data['nama']!= "TOTAL" AND $data['nama']!= "JUMLAH"){?>
+                                                    ['<?= $data['nama']?>',<?= $data['jumlah']?>],
+                                                <?php }?>
+                                            <?php }?>
+                                    ]
+                                }]
+                            });
+                        });
+
+                    });
+                    </script>
+                    <?php }else{?>
+
+                    <script type="text/javascript">
+                    $(function () {
+                        var chart;
+
+                        $(document).ready(function () {
+
+                            // Build the chart
+                            chart = new Highcharts.Chart({
+                                chart: {
+                                    renderTo: 'container'
+                                },
+                                title:0,
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        cursor: 'pointer',
+                                        showInLegend: true
+                                    }
+                                },
+                                series: [{
+                                    type: 'pie',
+                                    name: 'Jumlah Populasi',
+                                    shadow:1,
+                                    border:1,
+                                    data: [
+                                            <?php  foreach($stat as $data){?>
+                                                <?php if($data['jumlah'] != "-" AND $data['nama']!= "TOTAL" AND $data['nama']!= "JUMLAH"){?>
+                                                    ['<?= $data['nama']?>',<?= $data['jumlah']?>],
+                                                <?php }?>
+                                            <?php }?>
+                                    ]
+                                }]
+                            });
+                        });
+
+                    });
+                </script>
+            <?php }?>
+            <!-- END SRIPTS STATISTIK  -->
+<script src="<?= base_url()?>assets/js/highcharts/highcharts.js"></script>
+<script src="<?= base_url()?>assets/js/highcharts/highcharts-more.js"></script>
+<script src="<?= base_url()?>assets/js/highcharts/exporting.js"></script>
+<?php $this->load->view("$folder_themes/commons/footer_end.php"); ?>
